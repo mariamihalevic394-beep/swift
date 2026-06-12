@@ -1,57 +1,25 @@
-import Foundation
+import Foundation // імпорт бібліотеки, яка надає додаткові типи даних 
 
-struct Complex {
-    var real: Double
-    var imaginary: Double
-}
+struct Complex { // оголошення нової структури Complex, :Equatable означає, що екземпляри можна можна порівнювати оператором ==
+    var real: Double // дійсна частина комплексного числа
+    var imaginary: Double // уявна частина компоексного числа
 
-extension Complex {
-    func add(_ other: Complex) -> Complex {
-        return Complex(
-            real: self.real + other.real,
-            imaginary: self.imaginary + other.imaginary
-        )
+    init(real: Double, imaginary: Double) { // init - інііалізатор структури або класу, що викликається під час створення нового об'єкта 
+        self.real = real // параметр ініціалізатора, що приймає значення типу Double, дійсне число 
+        self.imaginary = imaginary // уявне число, також параметр ініціалізатора, що приймає значення типу Double 
     }
-}
 
-extension Complex {
-    func subtract(_ other: Complex) -> Complex {
-        return Complex(
-            real: self.real - other.real,
-            imaginary: self.imaginary - other.imaginary
-        )
-    }
-}
-
-extension Complex {
-    func multiply(_ other: Complex) -> Complex {
-        return Complex(
-            real: self.real * other.real - self.imaginary * other.imaginary,
-            imaginary: self.real * other.imaginary + self.imaginary * other.real 
-        )
-    }
-}
-
-extension Complex {
-    func divide(_ other: Complex) -> Complex {
-        let denominator = other.real * other.real + other.imaginary * other.imaginary
-        
-        return Complex(
-            real: (self.real * other.real + self.imaginary * other.imaginary) / denominator,
-            imaginary: (self.imaginary * other.real - self.real * other.imaginary) / denominator
-        )
+    func description() -> String { // оголошення методу description, він повертає текстовий рядок
+        if imaginary >= 0 { // перевірка уявної частини, чи вона не від'ємна 
+            return "\(real) + \(imaginary)i"  // якщо уявне число >= 0, то поверає рядок 3.0 + 2.0i
+        } else { // якщо умова не справджується 
+            return "\(real) - \(-imaginary)i" // то поверає 3.0 - 2.0i
+        }
     }
 }
 
 let z1 = Complex(real: 2, imaginary: 3)
 let z2 = Complex(real: 1, imaginary: 4)
 
-let sum = z1.add(z2)
-let diff = z1.subtract(z2)
-let product = z1.multiply(z2)
-let quotient = z1.divide(z2)
-
-print("Сума: \(sum.real) + \(sum.imaginary)i")
-print("Різниця: \(diff.real) - \(diff.imaginary)i")
-print("Добуток: \(product.real) * \(product.imaginary)i")
-print("Частка: \(quotient.real) / \(quotient.imaginary)i")
+print(z1.description()) 
+print(z2.description()) 
